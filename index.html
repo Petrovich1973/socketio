@@ -3,28 +3,49 @@
 <head>
     <title>Socket.IO chat</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font: 13px Helvetica, Arial; }
-        form { background: #333333; padding: 1px; position: absolute; top: 5px; width: 100%; box-sizing: border-box; }
-        form input { border: 0; box-sizing: border-box; padding: 10px; width: 80%; background: transparent; color: #fff; }
-        form button { width: 20%; background: rgba(255, 255, 255, .2); color: #fff; box-sizing: border-box; border: none; padding: 10px; }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
+        * { font: 14px Helvetica, Arial; margin: 0; padding: 0; box-sizing: border-box; }
+        form { 
+            background: #333333; 
+            padding: 1px;
+            width: 100%; 
+        }
+        form input { border: 0; padding: 10px; width: 80%; background: transparent; color: #fff; }
+        form button { width: 20%; background: rgba(255, 255, 255, .2); color: #fff; border: none; padding: 10px; }
+        #messages { 
+            list-style: none; 
+            margin: 0; 
+            padding: 50px 0; 
+        }
+        #messages li { 
+            padding: 5px 10px; 
+        }
+        #messages li:nth-child(odd) { 
+            background: #eee; 
+        }
+        .fixed {
+            position: fixed; 
+            top: 5px;
+            left: 0;
+            width: 100%; 
+        }
         .container {
-            position: relative;
             margin: 0 auto;
-            padding: 50px 0;
             max-width: 800px;
         }
     </style>
 </head>
 <body>
+
+<div class="fixed">
+    <div class="container">
+        <form action="">
+            <input id="m" autocomplete="off" /><button>Send</button>
+        </form>
+    </div>
+</div>
+
 <div class="container">    
     <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
 </div>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -38,6 +59,7 @@
                 if( $.trim(m.val()).length ) {
                     socket.emit('chat message', m.val());
                     m.val('');
+                    $(window).scrollTop(0);
                 }
                 return false;
             });
