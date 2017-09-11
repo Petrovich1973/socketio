@@ -1,0 +1,46 @@
+body {
+    font: 14px Helvetica, Arial;
+}
+* {  margin: 0; padding: 0; box-sizing: border-box; }
+form { 
+    background: #333333; 
+    padding: 1px;
+    width: 100%; 
+}
+form input { border: 0; padding: 10px; width: 80%; background: transparent; color: #fff; font: inherit;}
+form button { width: 20%; background: rgba(255, 255, 255, .2); color: #fff; border: none; padding: 10px; font: inherit;}
+#messages { 
+    list-style: none; 
+    margin: 0; 
+    padding: 60px 0; 
+}
+#messages li { 
+    position: relative;
+    padding: 5px 10px; 
+    margin-right: 20%;
+    margin-bottom: 20px;
+    background-color: #f7f7f7;
+}
+#messages li.active { 
+    margin-right: 0;
+    margin-left: 20%;
+    background-color: #ccf2e4;
+}
+#messages li small {
+    font-size: 71%;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 2px;
+    opacity: .4;
+}
+.fixed {
+    position: fixed; 
+    top: 5px;
+    left: 0;
+    width: 100%; 
+}
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+}

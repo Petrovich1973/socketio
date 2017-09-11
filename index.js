@@ -1,14 +1,14 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var express = require('express');  
+var app = express();  
+var server = require('http').createServer(app);  
+var io = require('socket.io')(server);
 
 var moment = require('moment');
 
 var port = process.env.PORT || 3000;
 
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
-});
+//app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 io.on('connection', function(socket){
 	socket.on('chat message', function(msg){
@@ -18,6 +18,6 @@ io.on('connection', function(socket){
 	});
 });
 
-http.listen(port, function(){
+server.listen(port, '0.0.0.0', function(){
 	console.log('http://localhost:' + port);
 });

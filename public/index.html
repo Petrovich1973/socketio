@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>Socket.IO chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="fixed">
+    <div class="container">
+        <form action="">
+            <input id="m" autocomplete="off" autofocus /><button>Send</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">    
+    <ul id="messages"></ul>
+</div>
+    <script src="socket.io.js"></script>
+    <script src="jquery.min.js"></script>
+    <script>        
+        
+        $(function () {
+
+            var socket = io();
+            var socketId;
+
+            $('form').submit(function(){
+                var m = $('#m');
+                if( $.trim(m.val()).length ) {
+                    socket.emit('chat message', $.trim(m.val()));
+                    m.val('');
+                    m.focus();
+                    $(window).scrollTop(0);
+                }
+                return false;
+            });
+
+            socket.on('chat message', function(msg, date, sessionId){
+                socketId = socket.io.engine.id;
+                if(socketId == sessionId) {
+                    $('#messages').prepend( $('<li>').addClass('active').html('<small>' + date + '</small> ' + msg) );
+                } else {
+                    $('#messages').prepend( $('<li>').html('<small>' + date + '</small> ' + msg) );
+                }
+                
+            });
+
+        });
+    </script>
+</body>
+</html>
